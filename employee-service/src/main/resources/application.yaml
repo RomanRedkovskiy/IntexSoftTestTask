@@ -1,0 +1,28 @@
+server:
+  port: 8081
+  error:
+    include-stacktrace: never
+    include-message: always
+
+spring:
+  application:
+    name: employee-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+  datasource:
+    url: jdbc:postgresql://localhost:5433/testdb
+    username: testuser
+    password: testpass
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/master-changelog.xml
+
+logging:
+  level:
+    org.springframework.jdbc.core: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
+    org.springframework.transaction: TRACE

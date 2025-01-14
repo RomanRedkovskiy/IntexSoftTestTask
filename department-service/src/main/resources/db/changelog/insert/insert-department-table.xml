@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2-insert-test-rows" author="redkovskiy">
+        <insert tableName="department">
+            <column name="id" value="1"/>
+            <column name="name" value="HR"/>
+            <column name="location" value="New York"/>
+        </insert>
+        <insert tableName="department">
+            <column name="id" value="2"/>
+            <column name="name" value="Engineering"/>
+            <column name="location" value="San Francisco"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
