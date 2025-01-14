@@ -7,4 +7,7 @@
 
     <include file="create/create-employee-table.xml" relativeToChangelogFile="true"/>
     <include file="insert/insert-employee-table.xml" relativeToChangelogFile="true"/>
+    <include file="create/create-phone-table.xml" relativeToChangelogFile="true"/>
+    <include file="insert/insert-phone-table.xml" relativeToChangelogFile="true"/>
+    <include file="create/create-is-deleted-for-employee-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

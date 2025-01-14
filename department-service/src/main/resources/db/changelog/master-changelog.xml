@@ -7,4 +7,6 @@
 
     <include file="create/create-department-table.xml" relativeToChangelogFile="true"/>
     <include file="insert/insert-department-table.xml" relativeToChangelogFile="true"/>
+    <include file="create/create-is-deleted-for-department-table.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>
