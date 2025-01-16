@@ -22,13 +22,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentMapper departmentMapper;
 
     @Override
-    public List<DepartmentDtoOut> getDepartments() {
+    public List<DepartmentDtoOut> getDepartmentsDto() {
         return departmentRepository.findAllByNotDeleted().stream().map(departmentMapper::toDto).toList();
     }
 
     @Override
     public DepartmentDtoOut getDepartmentDto(Long id) {
-        return departmentMapper.toDto(getDepartment(id));
+        return departmentMapper.toDto(getDepartmentById(id));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public DepartmentDtoOut updateDepartment(DepartmentDtoIn departmentDtoIn) {
-        Department department = getDepartment(departmentDtoIn.getId());
+        Department department = getDepartmentById(departmentDtoIn.getId());
         // TODO: checks
         departmentMapper.updateFromDto(departmentDtoIn, department);
         departmentRepository.save(department);
@@ -50,14 +50,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void deleteDepartment(Long id) {
-        Department department = getDepartment(id);
+        Department department = getDepartmentById(id);
         department.setDeleted(true);
         departmentRepository.save(department);
     }
 
-    private Department getDepartment(Long id) {
+    private Department getDepartmentById(Long id) {
         return departmentRepository.findByIdAndNotDeleted(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Department with given id not found"));
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Department with given ID not found"));
     }
 
     private DepartmentFullDtoOut toFullDtoOut(Department department) {

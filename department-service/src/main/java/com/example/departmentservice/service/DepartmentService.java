@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DepartmentService {
 
-    List<DepartmentDtoOut> getDepartments();
+    List<DepartmentDtoOut> getDepartmentsDto();
 
     DepartmentDtoOut getDepartmentDto(Long id);
 
