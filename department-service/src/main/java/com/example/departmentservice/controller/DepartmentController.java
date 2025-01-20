@@ -1,7 +1,8 @@
 package com.example.departmentservice.controller;
 
-import com.example.departmentservice.dto.DepartmentDtoIn;
-import com.example.departmentservice.dto.DepartmentDtoOut;
+import com.example.departmentservice.dto.in.DepartmentCreateDtoIn;
+import com.example.departmentservice.dto.in.DepartmentUpdateDtoIn;
+import com.example.departmentservice.dto.out.DepartmentDtoOut;
 import com.example.departmentservice.service.department.DepartmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -45,14 +46,14 @@ public class DepartmentController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new department", description = "Add a new department to the system.")
-    public DepartmentDtoOut createDepartment(@RequestBody @Valid DepartmentDtoIn departmentDtoIn) {
-        return departmentService.createDepartment(departmentDtoIn);
+    public DepartmentDtoOut createDepartment(@RequestBody @Valid DepartmentCreateDtoIn departmentCreateDtoIn) {
+        return departmentService.createDepartment(departmentCreateDtoIn);
     }
 
     @PutMapping
     @Operation(summary = "Update an existing department", description = "Edit details of an existing department identified by its ID.")
-    public DepartmentDtoOut updateDepartment(@RequestBody DepartmentDtoIn departmentDtoIn) {
-        return departmentService.updateDepartment(departmentDtoIn);
+    public DepartmentDtoOut updateDepartment(@RequestBody @Valid DepartmentUpdateDtoIn departmentCreateDtoIn) {
+        return departmentService.updateDepartment(departmentCreateDtoIn);
     }
 
     @DeleteMapping("/{id}")

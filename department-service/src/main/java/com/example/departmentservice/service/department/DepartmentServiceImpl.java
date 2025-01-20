@@ -1,8 +1,9 @@
 package com.example.departmentservice.service.department;
 
-import com.example.departmentservice.dto.DepartmentDtoIn;
-import com.example.departmentservice.dto.DepartmentDtoOut;
-import com.example.departmentservice.dto.DepartmentFullDtoOut;
+import com.example.departmentservice.dto.in.DepartmentCreateDtoIn;
+import com.example.departmentservice.dto.in.DepartmentUpdateDtoIn;
+import com.example.departmentservice.dto.out.DepartmentDtoOut;
+import com.example.departmentservice.dto.out.DepartmentFullDtoOut;
 import com.example.departmentservice.mapper.DepartmentMapper;
 import com.example.departmentservice.model.Department;
 import com.example.departmentservice.repository.DepartmentRepository;
@@ -34,18 +35,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public DepartmentDtoOut createDepartment(DepartmentDtoIn departmentDtoIn) {
-        Department department = departmentMapper.fromDto(departmentDtoIn);
+    public DepartmentDtoOut createDepartment(DepartmentCreateDtoIn departmentCreateDtoIn) {
+        Department department = departmentMapper.fromDto(departmentCreateDtoIn);
         // TODO: checks
         departmentRepository.save(department);
         return departmentMapper.toDto(department);
     }
 
     @Override
-    public DepartmentDtoOut updateDepartment(DepartmentDtoIn departmentDtoIn) {
-        Department department = getDepartmentById(departmentDtoIn.getId());
+    public DepartmentDtoOut updateDepartment(DepartmentUpdateDtoIn departmentCreateDtoIn) {
+        Department department = getDepartmentById(departmentCreateDtoIn.getId());
         // TODO: checks
-        departmentMapper.updateFromDto(departmentDtoIn, department);
+        departmentMapper.updateFromDto(departmentCreateDtoIn, department);
         departmentRepository.save(department);
         return departmentMapper.toDto(department);
     }

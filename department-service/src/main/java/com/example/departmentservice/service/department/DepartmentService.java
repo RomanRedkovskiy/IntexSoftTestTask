@@ -1,7 +1,8 @@
 package com.example.departmentservice.service.department;
 
-import com.example.departmentservice.dto.DepartmentDtoIn;
-import com.example.departmentservice.dto.DepartmentDtoOut;
+import com.example.departmentservice.dto.in.DepartmentCreateDtoIn;
+import com.example.departmentservice.dto.in.DepartmentUpdateDtoIn;
+import com.example.departmentservice.dto.out.DepartmentDtoOut;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ public interface DepartmentService {
 
     DepartmentDtoOut getDepartmentDto(Long id);
 
-    DepartmentDtoOut createDepartment(DepartmentDtoIn departmentDtoIn);
+    DepartmentDtoOut createDepartment(DepartmentCreateDtoIn departmentCreateDtoIn);
 
-    DepartmentDtoOut updateDepartment(DepartmentDtoIn departmentDtoIn);
+    DepartmentDtoOut updateDepartment(DepartmentUpdateDtoIn departmentCreateDtoIn);
 
     void deleteDepartment(Long id);
 
