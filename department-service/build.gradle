@@ -60,6 +60,13 @@ dependencyManagement {
 	}
 }
 
+tasks.named('compileJava') {
+	options.compilerArgs += [
+			'-Amapstruct.defaultComponentModel=spring', // Sets the default component model to Spring
+			'-parameters' // Enables parameter names for mapping method generation
+	]
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }

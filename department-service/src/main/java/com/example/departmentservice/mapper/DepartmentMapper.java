@@ -10,7 +10,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper
 public interface DepartmentMapper {
 
     Department fromDto(DepartmentCreateDtoIn dto);
