@@ -2,12 +2,13 @@ package com.example.departmentservice.controller;
 
 import com.example.departmentservice.dto.DepartmentDtoIn;
 import com.example.departmentservice.dto.DepartmentDtoOut;
-import com.example.departmentservice.service.DepartmentService;
+import com.example.departmentservice.service.department.DepartmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/departments")
 @RequiredArgsConstructor
+@Validated
 @Tag(name = "Department Controller", description = "Controller for managing departments")
 public class DepartmentController {
 
@@ -40,6 +43,7 @@ public class DepartmentController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new department", description = "Add a new department to the system.")
     public DepartmentDtoOut createDepartment(@RequestBody @Valid DepartmentDtoIn departmentDtoIn) {
         return departmentService.createDepartment(departmentDtoIn);

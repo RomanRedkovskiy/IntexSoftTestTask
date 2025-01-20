@@ -1,5 +1,6 @@
 package com.example.employeeservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,10 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Setter
@@ -24,17 +24,19 @@ public class Phone {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "phone_id_gen")
     @SequenceGenerator(name = "phone_id_gen", sequenceName = "phone_id_seq", allocationSize = 1)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
-    @Size(max = 30)
-    @NotNull
-    @Column(name = "phone", nullable = false, length = 30)
+    @Column(name = "phone")
     private String phone;
 
-    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "employee_id")
+    @JsonBackReference
     private Employee employee;
+
+    @ColumnDefault("false")
+    @Column(name = "deleted")
+    private Boolean deleted = false;
 
 }

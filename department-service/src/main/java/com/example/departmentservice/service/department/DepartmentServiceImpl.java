@@ -1,4 +1,4 @@
-package com.example.departmentservice.service;
+package com.example.departmentservice.service.department;
 
 import com.example.departmentservice.dto.DepartmentDtoIn;
 import com.example.departmentservice.dto.DepartmentDtoOut;
@@ -6,16 +6,18 @@ import com.example.departmentservice.dto.DepartmentFullDtoOut;
 import com.example.departmentservice.mapper.DepartmentMapper;
 import com.example.departmentservice.model.Department;
 import com.example.departmentservice.repository.DepartmentRepository;
+import com.example.departmentservice.service.message.MessageService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class DepartmentServiceImpl implements DepartmentService {
+
+    private final MessageService messageService;
 
     private final DepartmentRepository departmentRepository;
 
@@ -57,7 +59,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     private Department getDepartmentById(Long id) {
         return departmentRepository.findByIdAndNotDeleted(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Department with given ID not found"));
+                new EntityNotFoundException(messageService.getMessage("exception.department-not-found", id)));
     }
 
     private DepartmentFullDtoOut toFullDtoOut(Department department) {

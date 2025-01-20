@@ -1,10 +1,8 @@
-package com.example.employeeservice.dto.employee;
+package com.example.employeeservice.dto.employee.out;
 
-import com.example.employeeservice.dto.phone.PhoneDtoIn;
-import com.example.employeeservice.dto.phone.PhoneDtoOut;
+import com.example.employeeservice.dto.phone.out.PhoneDtoOut;
 import com.example.employeeservice.model.enums.EmployeeRole;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,20 +16,28 @@ import java.util.Set;
 @AllArgsConstructor
 public class EmployeeDtoOut {
 
+    @JsonProperty(value = "id")
     private Long id;
 
+    @JsonProperty(value = "name")
     private String name;
 
+    @JsonProperty(value = "surname")
     private String surname;
 
+    @JsonProperty(value = "salary")
     private Long salary;
 
+    @JsonProperty(value = "role")
     private EmployeeRole role;
 
+    @JsonProperty(value = "managerId")
     private Long managerId;
 
+    @JsonProperty(value = "departmentId")
     private Long departmentId;
 
+    @JsonProperty(value = "phones")
     private Set<PhoneDtoOut> phones;
 
 }

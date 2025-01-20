@@ -1,6 +1,8 @@
 package com.example.employeeservice.model.entity;
 
 import com.example.employeeservice.model.enums.EmployeeRole;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,12 +16,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -27,31 +29,26 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@BatchSize(size = 20)
 @Table(name = "employee")
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_id_gen")
     @SequenceGenerator(name = "employee_id_gen", sequenceName = "employee_id_seq", allocationSize = 1)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
-    @Size(max = 255)
-    @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Size(max = 255)
-    @NotNull
-    @Column(name = "surname", nullable = false)
+    @Column(name = "surname")
     private String surname;
 
-    @NotNull
-    @Column(name = "salary", nullable = false)
+    @Column(name = "salary")
     private Long salary;
 
-    @NotNull
-    @Column(name = "role", nullable = false)
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private EmployeeRole role;
 
@@ -62,18 +59,20 @@ public class Employee {
     @Column(name = "department_id")
     private Long departmentId;
 
-    @NotNull
-    @Column(name = "registration_time", nullable = false)
+    @Column(name = "registration_time")
+    @CreationTimestamp
     private LocalDateTime registrationTime;
 
-    @NotNull
-    @Column(name = "update_time", nullable = false)
+    @Column(name = "update_time")
+    @UpdateTimestamp
     private LocalDateTime updateTime;
 
     @Column(name = "deleted")
     private Boolean deleted = false;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @BatchSize(size = 20)
     private Set<Phone> phones = new LinkedHashSet<>();
 
 }

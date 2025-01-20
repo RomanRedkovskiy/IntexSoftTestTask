@@ -4,10 +4,11 @@ import com.example.departmentservice.dto.DepartmentDtoIn;
 import com.example.departmentservice.dto.DepartmentDtoOut;
 import com.example.departmentservice.model.Department;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface DepartmentMapper {
 
     Department fromDto(DepartmentDtoIn dto);

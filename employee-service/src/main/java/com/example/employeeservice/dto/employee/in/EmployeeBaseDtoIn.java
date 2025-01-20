@@ -1,25 +1,23 @@
-package com.example.employeeservice.dto.employee;
+package com.example.employeeservice.dto.employee.in;
 
-import com.example.employeeservice.dto.phone.PhoneDtoIn;
 import com.example.employeeservice.model.enums.EmployeeRole;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeCreateDtoIn {
+public abstract class EmployeeBaseDtoIn {
 
-    @NotNull(message = "Employee name not found")
+    @NotBlank(message = "Employee name not found")
     @Size(max = 255, message = "Employee name max size is 255")
     private String name;
 
-    @NotNull(message = "Employee surname not found")
+    @NotBlank(message = "Employee surname not found")
     @Size(max = 255, message = "Employee surname max size is 255")
     private String surname;
 
@@ -33,5 +31,4 @@ public class EmployeeCreateDtoIn {
 
     private Long departmentId;
 
-    private Set<PhoneDtoIn> phones;
 }
