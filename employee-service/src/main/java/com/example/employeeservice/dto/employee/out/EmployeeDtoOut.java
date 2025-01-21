@@ -3,17 +3,13 @@ package com.example.employeeservice.dto.employee.out;
 import com.example.employeeservice.dto.phone.out.PhoneDtoOut;
 import com.example.employeeservice.model.enums.EmployeeRole;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Set;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
+@SuperBuilder
 public class EmployeeDtoOut {
 
     @JsonProperty(value = "id")

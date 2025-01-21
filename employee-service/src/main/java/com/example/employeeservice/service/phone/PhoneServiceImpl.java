@@ -39,6 +39,8 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     public List<PhoneDtoOut> getPhonesByEmployeeId(Long employeeId) {
+        // throws EntityNotFoundException if no present employee with this id
+        employeeRetrieverService.getEmployeeById(employeeId);
         return phoneRepository.findByEmployeeId(employeeId).stream().map(this::toDto).toList();
     }
 

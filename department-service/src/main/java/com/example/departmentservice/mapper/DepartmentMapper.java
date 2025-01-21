@@ -6,7 +6,6 @@ import com.example.departmentservice.dto.out.DepartmentDtoOut;
 import com.example.departmentservice.model.Department;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 
 

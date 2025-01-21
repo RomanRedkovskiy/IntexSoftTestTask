@@ -3,10 +3,12 @@ package com.example.departmentservice.dto.in;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-@Getter
+@Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public abstract class DepartmentBaseDtoIn {

@@ -79,8 +79,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     private void handleEmployeePhones(Employee employee, Set<PhoneDtoIn> phones) {
-        phoneService.validatePhonesCreate(phones.stream().map(PhoneDtoIn::getPhone).toList());
-        employee.getPhones().forEach(phone -> phone.setEmployee(employee));
+        if (phones != null && !phones.isEmpty()) {
+            phoneService.validatePhonesCreate(phones.stream().map(PhoneDtoIn::getPhone).toList());
+            employee.getPhones().forEach(phone -> phone.setEmployee(employee));
+        }
     }
 
     private void handleEmployeeRelations(Employee employee, Long managerId, Long departmentId) {
