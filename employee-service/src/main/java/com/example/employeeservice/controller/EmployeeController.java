@@ -3,6 +3,7 @@ package com.example.employeeservice.controller;
 import com.example.employeeservice.dto.employee.in.EmployeeCreateDtoIn;
 import com.example.employeeservice.dto.employee.in.EmployeeUpdateDtoIn;
 import com.example.employeeservice.dto.employee.out.EmployeeDtoOut;
+import com.example.employeeservice.dto.employee.out.EmployeeFullDtoOut;
 import com.example.employeeservice.service.employee.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("employees")
 @RequiredArgsConstructor
 @Validated
 @Tag(name = "Employee Controller", description = "Controller for managing employees")
@@ -34,32 +37,44 @@ public class EmployeeController {
     @GetMapping("page")
     @Operation(summary = "Retrieve employees page", description = "Fetch a page of available employees with filtering")
     public Page<EmployeeDtoOut> getAllEmployees(Pageable pageable) {
-        return employeeService.getEmployeesDto(pageable);
+        return employeeService.getDtoPage(pageable);
     }
 
     @GetMapping("{id}")
     @Operation(summary = "Retrieve an employee by ID", description = "Fetch details of an employee using its unique identifier.")
-    public EmployeeDtoOut getEmployeeById(@PathVariable Long id) {
-        return employeeService.getEmployeeDto(id);
+    public EmployeeFullDtoOut getEmployeeById(@PathVariable Long id) {
+        return employeeService.getDto(id);
+    }
+
+    @GetMapping("department/{departmentId}")
+    @Operation(summary = "Retrieve an employee by department ID", description = "Fetch a list of employees by their department ID.")
+    public List<EmployeeDtoOut> getEmployeesByDepartmentId(@PathVariable Long departmentId) {
+        return employeeService.getDtoListByDepartmentId(departmentId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new employee", description = "Add a new employee to the system.")
     public EmployeeDtoOut createEmployee(@RequestBody @Valid EmployeeCreateDtoIn employeeCreateDtoIn) {
-        return employeeService.createEmployee(employeeCreateDtoIn);
+        return employeeService.create(employeeCreateDtoIn);
     }
 
     @PutMapping
     @Operation(summary = "Update an existing employee", description = "Edit details of an employee. This method won't affect employee's phones")
     public EmployeeDtoOut updateEmployee(@RequestBody @Valid EmployeeUpdateDtoIn employeeUpdateDtoIn) {
-        return employeeService.updateEmployee(employeeUpdateDtoIn);
+        return employeeService.update(employeeUpdateDtoIn);
     }
 
     @DeleteMapping("{id}")
     @Operation(summary = "Delete an employee", description = "Remove an employee from the system using its ID.")
     public void deleteEmployee(@PathVariable Long id) {
-        employeeService.deleteEmployee(id);
+        employeeService.delete(id);
+    }
+
+    @DeleteMapping("department/{departmentId}")
+    @Operation(summary = "Delete an employee's department", description = "Remove a deleted department reference for employees")
+    public void deleteDepartmentReference(@PathVariable Long departmentId) {
+        employeeService.deleteDepartmentReference(departmentId);
     }
 
 }

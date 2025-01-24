@@ -29,7 +29,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@BatchSize(size = 20)
 @Table(name = "employee")
 public class Employee {
 

@@ -1,4 +1,4 @@
-package com.example.departmentservice.dto.out;
+package com.example.employeeservice.dto.department;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

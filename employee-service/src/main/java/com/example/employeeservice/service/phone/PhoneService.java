@@ -12,21 +12,21 @@ import java.util.Set;
 
 public interface PhoneService {
 
-    PhoneDtoOut getPhoneDtoById(Long id);
+    PhoneDtoOut getDtoById(Long id);
 
-    List<PhoneDtoOut> getPhonesByEmployeeId(Long employeeId);
+    List<PhoneDtoOut> getListByEmployeeId(Long employeeId);
 
     void validatePhonesCreate(List<String> phones);
 
     PhoneDtoOut toDto(Phone phone);
 
-    PhoneDtoOut createPhone(PhoneCreateDtoIn phoneDtoIn);
+    PhoneDtoOut create(PhoneCreateDtoIn phoneDtoIn);
 
-    List<Phone> savePhones(Set<PhoneDtoIn> phones, Employee employee);
+    List<Phone> saveList(Set<PhoneDtoIn> phones, Employee employee);
 
-    PhoneDtoOut updatePhone(PhoneUpdateDtoIn phoneDtoIn);
+    PhoneDtoOut update(PhoneUpdateDtoIn phoneDtoIn);
 
-    void deletePhone(Long id);
+    void deleteById(Long id);
 
     void deletePhones(Set<Phone> phones);
 

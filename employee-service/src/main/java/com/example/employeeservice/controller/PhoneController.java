@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/phones")
+@RequestMapping("phones")
 @RequiredArgsConstructor
 @Validated
 @Tag(name = "Phone Controller", description = "Controller for managing employee phones")
@@ -34,31 +34,31 @@ public class PhoneController {
     @GetMapping("{id}")
     @Operation(summary = "Retrieve a phone by ID", description = "Fetch details of a phone using its unique identifier.")
     public PhoneDtoOut getPhoneById(@PathVariable Long id) {
-        return phoneService.getPhoneDtoById(id);
+        return phoneService.getDtoById(id);
     }
 
     @GetMapping("employee/{employeeId}")
     @Operation(summary = "Retrieve a phone list by employee ID", description = "Fetch a list of phones using employee unique identifier.")
     public List<PhoneDtoOut> getPhonesByEmployeeId(@PathVariable Long employeeId) {
-        return phoneService.getPhonesByEmployeeId(employeeId);
+        return phoneService.getListByEmployeeId(employeeId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Add a new phone", description = "Add a new employee's phone to the system.")
     public PhoneDtoOut addPhone(@RequestBody @Valid PhoneCreateDtoIn phoneDtoIn) {
-        return phoneService.createPhone(phoneDtoIn);
+        return phoneService.create(phoneDtoIn);
     }
 
     @PutMapping
     @Operation(summary = "Update an existing phone", description = "Edit details an existing phone.")
     public PhoneDtoOut updatePhone(@RequestBody @Valid PhoneUpdateDtoIn phoneDtoIn) {
-        return phoneService.updatePhone(phoneDtoIn);
+        return phoneService.update(phoneDtoIn);
     }
 
     @DeleteMapping("{id}")
     @Operation(summary = "Delete a phone", description = "Remove a phone from the system using its ID.")
     public void deletePhone(@PathVariable Long id) {
-        phoneService.deletePhone(id);
+        phoneService.deleteById(id);
     }
 }

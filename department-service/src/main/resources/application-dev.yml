@@ -1,0 +1,38 @@
+server:
+  port: ${DEPARTMENT_SERVICE_PORT}
+  error:
+    include-stacktrace: never
+    include-message: always
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 20
+  datasource:
+    url: jdbc:postgresql://${HOST}:${DEPARTMENT_POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASS}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/master-changelog.xml
+  kafka:
+    producer:
+      bootstrap-servers: ${HOST}:${KAFKA_PORT}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.example.departmentservice.kafka.serialization.ObjectSerializer
+
+logging:
+  level:
+    org.springframework.jdbc.core: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
+    org.springframework.transaction: TRACE
+
+employee:
+  service:
+    url: http://${HOST}:${EMPLOYEE_SERVICE_PORT}

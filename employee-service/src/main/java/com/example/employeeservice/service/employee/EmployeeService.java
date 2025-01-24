@@ -3,19 +3,26 @@ package com.example.employeeservice.service.employee;
 import com.example.employeeservice.dto.employee.in.EmployeeCreateDtoIn;
 import com.example.employeeservice.dto.employee.in.EmployeeUpdateDtoIn;
 import com.example.employeeservice.dto.employee.out.EmployeeDtoOut;
+import com.example.employeeservice.dto.employee.out.EmployeeFullDtoOut;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface EmployeeService {
 
-    Page<EmployeeDtoOut> getEmployeesDto(Pageable pageable);
+    Page<EmployeeDtoOut> getDtoPage(Pageable pageable);
 
-    EmployeeDtoOut getEmployeeDto(Long id);
+    EmployeeFullDtoOut getDto(Long id);
 
-    EmployeeDtoOut createEmployee(EmployeeCreateDtoIn employeeCreateDtoIn);
+    List<EmployeeDtoOut> getDtoListByDepartmentId(Long departmentId);
 
-    EmployeeDtoOut updateEmployee(EmployeeUpdateDtoIn employeeUpdateDtoIn);
+    EmployeeDtoOut create(EmployeeCreateDtoIn employeeCreateDtoIn);
 
-    void deleteEmployee(Long id);
+    EmployeeDtoOut update(EmployeeUpdateDtoIn employeeUpdateDtoIn);
+
+    void delete(Long id);
+
+    void deleteDepartmentReference(Long departmentId);
 
 }

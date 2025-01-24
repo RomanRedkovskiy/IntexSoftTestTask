@@ -1,4 +1,4 @@
-package com.example.departmentservice.model;
+package com.example.departmentservice.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,0 +1,15 @@
+server:
+  port: ${NOTIFICATION_SERVICE_PORT}
+
+spring:
+  jpa:
+    open-in-view: false
+  kafka:
+    consumer:
+      bootstrap-servers: ${HOST}:${KAFKA_PORT}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: com.example.notificationservice.kafka.deserialization.InitialDeserializer
+      group-id: department-group
+    listener:
+      type: single
+      missing-topics-fatal: false
