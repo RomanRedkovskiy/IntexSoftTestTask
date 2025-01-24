@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${DEPARTMENT_SERVICE_PORT:8080}
   error:
     include-stacktrace: never
     include-message: always
@@ -15,15 +15,15 @@ spring:
       hibernate:
         default_batch_fetch_size: 20
   datasource:
-    url: jdbc:postgresql://localhost:5432/testdb
-    username: testuser
-    password: testpass
+    url: jdbc:postgresql://${HOST:localhost}:${DEPARTMENT_POSTGRES_PORT:5432}/${POSTGRES_DB:testdb}
+    username: ${POSTGRES_USER:testuser}
+    password: ${POSTGRES_PASS:testpass}
     driver-class-name: org.postgresql.Driver
   liquibase:
     enabled: false
   kafka:
     producer:
-      bootstrap-servers: localhost:29092
+      bootstrap-servers: ${HOST:localhost}:${KAFKA_PORT:29092}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: com.example.departmentservice.kafka.serialization.ObjectSerializer
 
@@ -36,4 +36,4 @@ logging:
 
 employee:
   service:
-    url: http://localhost:8081
+    url: http://${HOST:localhost}:${EMPLOYEE_SERVICE_PORT:8081}
