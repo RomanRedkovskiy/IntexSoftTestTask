@@ -1,9 +1,8 @@
-package com.example.departmentservice.dto.in;
+package com.example.departmentservice.dto.department.in;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)

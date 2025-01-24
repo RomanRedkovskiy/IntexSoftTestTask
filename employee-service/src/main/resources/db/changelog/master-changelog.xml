@@ -5,10 +5,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <include file="create/create-employee-table.xml" relativeToChangelogFile="true"/>
-    <include file="insert/insert-employee-table.xml" relativeToChangelogFile="true"/>
-    <include file="create/create-phone-table.xml" relativeToChangelogFile="true"/>
-    <include file="insert/insert-phone-table.xml" relativeToChangelogFile="true"/>
-    <include file="create/create-is-deleted-for-employee-table.xml" relativeToChangelogFile="true"/>
-    <include file="create/create-is-deleted-for-phone-table.xml" relativeToChangelogFile="true"/>
+    <include file="ddl/create-employee-table.xml" relativeToChangelogFile="true"/>
+    <include file="dml/insert-employee-table.xml" relativeToChangelogFile="true"/>
+    <include file="ddl/create-phone-table.xml" relativeToChangelogFile="true"/>
+    <include file="dml/insert-phone-table.xml" relativeToChangelogFile="true"/>
+    <include file="ddl/create-is-deleted-for-employee-table.xml" relativeToChangelogFile="true"/>
+    <include file="ddl/create-is-deleted-for-phone-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

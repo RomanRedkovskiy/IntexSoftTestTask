@@ -1,6 +1,6 @@
-package com.example.departmentservice.dto.in;
+package com.example.departmentservice.dto.employee;
 
-import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,8 +12,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DepartmentUpdateDtoIn extends DepartmentBaseDtoIn {
+public class EmployeeDtoOut extends EmployeeBaseDtoOut {
 
-    @NotNull(message = "Department id not found")
-    private Long id;
+    @JsonProperty(value = "departmentId")
+    private Long departmentId;
+
 }

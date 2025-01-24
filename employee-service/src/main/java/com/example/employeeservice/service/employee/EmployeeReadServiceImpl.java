@@ -1,4 +1,4 @@
-package com.example.employeeservice.service.employee.retriever;
+package com.example.employeeservice.service.employee;
 
 import com.example.employeeservice.model.entity.Employee;
 import com.example.employeeservice.repository.EmployeeRepository;
@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class EmployeeRetrieverServiceImpl implements EmployeeRetrieverService {
+public class EmployeeReadServiceImpl implements EmployeeReadService {
 
     private final MessageService messageService;
 
     private final EmployeeRepository employeeRepository;
 
-    public Employee getEmployeeById(Long id) {
-        return employeeRepository.findByIdAndNotDeleted(id).orElseThrow(() ->
+    public Employee getById(Long id) {
+        return employeeRepository.findByIdAndDeletedFalse(id).orElseThrow(() ->
                 new EntityNotFoundException(messageService.getMessage("exception.employee-not-found", id.toString())));
     }
 }

@@ -1,0 +1,31 @@
+server:
+  port: ${EMPLOYEE_SERVICE_PORT}
+  error:
+    include-stacktrace: never
+    include-message: always
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 20
+  datasource:
+    url: jdbc:postgresql://employee-service-db:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASS}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/master-changelog.xml
+  kafka:
+    producer:
+      bootstrap-servers: kafka:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.example.employeeservice.kafka.serialization.ObjectSerializer
+
+department:
+  service:
+    url: http://department-service:${DEPARTMENT_SERVICE_PORT}

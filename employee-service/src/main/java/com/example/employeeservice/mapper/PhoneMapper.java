@@ -15,21 +15,22 @@ public interface PhoneMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "employee", source = "employee")
-    Phone fromDtoAndEmployee(PhoneDtoIn phoneDtoIn, Employee employee);
+    Phone from(PhoneDtoIn phoneDtoIn, Employee employee);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "employee", ignore = true)
-    Phone fromDto(PhoneDtoIn phoneDtoIn);
+    @Mapping(target = "deleted", ignore = true)
+    Phone from(PhoneDtoIn phoneDtoIn);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "employee", source = "employee")
-    Phone fromCreateDtoAndEmployee(PhoneCreateDtoIn dto, Employee employee);
+    Phone from(PhoneCreateDtoIn dto, Employee employee);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "employee", source = "employee")
-    void fromUpdateDtoAndEmployee(@MappingTarget Phone phone, PhoneUpdateDtoIn dto, Employee employee);
+    void enrichWith(@MappingTarget Phone phone, PhoneUpdateDtoIn dto, Employee employee);
 
     @Mapping(target = "employeeId", source = "phone.employee.id")
-    PhoneDtoOut toDto(Phone phone);
+    PhoneDtoOut to(Phone phone);
 
 }
