@@ -15,14 +15,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public abstract class EmployeeBaseDtoIn {
 
-    @NotBlank(message = "Employee name not found")
-    @Size(max = 255, message = "Employee name max size is 255")
-    private String name;
-
-    @NotBlank(message = "Employee surname not found")
-    @Size(max = 255, message = "Employee surname max size is 255")
-    private String surname;
-
     @NotNull(message = "Employee salary not found")
     private Long salary;
 
