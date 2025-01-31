@@ -1,0 +1,22 @@
+server:
+  port: ${API_GATEWAY_PORT:8080}
+  servlet:
+    context-path: /api/v1
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  # Enable automatic discovery of routes from Eureka
+      routes:
+        - id: department-service
+          uri: lb://DEPARTMENT-SERVICE  # Service name must match Eureka registration
+          predicates:
+            - Path=/api/*/departments/**  # Matches requests to /api/v1/departments/**
+        - id: employee-service
+          uri: lb://EMPLOYEE-SERVICE  # Load-balanced route to employee service
+          predicates:
+            - Path=/api/*/employees/**,/api/*/phones/**

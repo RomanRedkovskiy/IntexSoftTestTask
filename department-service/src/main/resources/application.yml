@@ -1,9 +1,41 @@
+server:
+  port: 0
+  servlet:
+    context-path: /api/v1
+  error:
+    include-stacktrace: never
+    include-message: always
+
 spring:
   application:
     name: department-service
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 20
+  datasource:
+    url: jdbc:postgresql://${HOST}:${DEPARTMENT_POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER:testuser}
+    password: ${POSTGRES_PASS:testpass}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/master-changelog.xml
+  kafka:
+    producer:
+      bootstrap-servers: ${HOST:localhost}:${KAFKA_PORT:29092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: com.example.departmentservice.kafka.serialization.ObjectSerializer
 
 kafka:
   topics:
     departmentCreate: department-create-topic
     departmentUpdate: department-update-topic
     departmentDelete: department-delete-topic
+
+employee:
+  service:
+    url: ""

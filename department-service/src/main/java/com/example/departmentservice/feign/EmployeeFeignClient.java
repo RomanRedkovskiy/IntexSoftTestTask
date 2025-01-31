@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "department-service", url = "${employee.service.url}")
+@FeignClient(name = "EMPLOYEE-SERVICE", url = "${employee.service.url}")
 public interface EmployeeFeignClient {
 
-    @GetMapping("employees/department/{id}")
+    @GetMapping("api/v1/employees/department/{id}")
     List<EmployeeDtoOut> getEmployeesByDepartmentId(@PathVariable Long id);
 
-    @DeleteMapping("employees/department/{departmentId}")
+    @DeleteMapping("api/v1/employees/department/{departmentId}")
     void deleteDepartmentReference(@PathVariable Long departmentId);
 
 }

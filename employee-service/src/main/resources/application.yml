@@ -1,3 +1,11 @@
+server:
+  port: 0
+  servlet:
+    context-path: /api/v1
+  error:
+    include-stacktrace: never
+    include-message: always
+
 spring:
   application:
     name: employee-service
@@ -11,15 +19,15 @@ spring:
       hibernate:
         default_batch_fetch_size: 20
   datasource:
-    url: jdbc:postgresql://employee-service-db:5432/${POSTGRES_DB}
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASS}
+    url: jdbc:postgresql://${HOST:localhost}:${EMPLOYEE_POSTGRES_PORT:5433}/${POSTGRES_DB:testdb}
+    username: ${POSTGRES_USER:testuser}
+    password: ${POSTGRES_PASS:testpass}
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:/db/changelog/master-changelog.xml
   kafka:
     producer:
-      bootstrap-servers: kafka:9092
+      bootstrap-servers: ${HOST:localhost}:${KAFKA_PORT:29092}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: com.example.employeeservice.kafka.serialization.ObjectSerializer
 
@@ -31,3 +39,7 @@ kafka:
     phoneCreate: phone-create-topic
     phoneUpdate: phone-update-topic
     phoneDelete: phone-delete-topic
+
+department:
+  service:
+    url: ""

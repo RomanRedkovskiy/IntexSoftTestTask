@@ -1,5 +1,6 @@
 package com.example.employeeservice;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,5 @@ public class TestcontainersConfiguration {
 	PostgreSQLContainer<?> postgresContainer() {
 		return new PostgreSQLContainer<>(DockerImageName.parse("postgres:latest"));
 	}
-
 
 }

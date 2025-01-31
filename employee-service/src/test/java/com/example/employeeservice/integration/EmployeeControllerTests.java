@@ -4,24 +4,29 @@ import com.example.employeeservice.TestcontainersConfiguration;
 import com.example.employeeservice.dto.employee.in.EmployeeCreateDtoIn;
 import com.example.employeeservice.dto.employee.out.EmployeeDtoOut;
 import com.example.employeeservice.dto.phone.in.PhoneDtoIn;
+import com.example.employeeservice.kafka.NotificationProducer;
 import com.example.employeeservice.model.enums.EmployeeRole;
 import com.example.employeeservice.service.employee.EmployeeService;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@AutoConfigureWireMock(port = 8080)
+@AutoConfigureWireMock(port = 8585)
 public class EmployeeControllerTests {
 
     @Autowired
@@ -46,7 +51,10 @@ public class EmployeeControllerTests {
 
     @BeforeAll
     void setUp() {
-        WireMock.stubFor(WireMock.get("/departments/1")
+        NotificationProducer notificationProducer = mock(NotificationProducer.class);
+        ReflectionTestUtils.setField(employeeService, "notificationProducer", notificationProducer);
+
+        WireMock.stubFor(WireMock.get("/api/v1/departments/1")
                 .willReturn(WireMock.aResponse()
                         .withBody("{}")
                         .withHeader("Content-Type", "application/json")
