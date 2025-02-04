@@ -1,0 +1,13 @@
+server:
+  port: ${DEPARTMENT_SERVICE_PORT:8081}
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  liquibase:
+    enabled: false
+
+employee:
+  service:
+    url: http://localhost:8585

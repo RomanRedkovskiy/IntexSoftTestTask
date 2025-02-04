@@ -1,0 +1,24 @@
+server:
+  port: ${EMPLOYEE_SERVICE_PORT:8082}
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  liquibase:
+    enabled: false
+#  cloud:
+#    discovery:
+#      enabled: false
+#      client:
+#        simple:
+#          instances:
+#            DEPARTMENT-SERVICE:
+#              uri: http://localhost:9091
+eureka:
+  client:
+    enabled: false
+
+department:
+  service:
+    url: http://localhost:8585

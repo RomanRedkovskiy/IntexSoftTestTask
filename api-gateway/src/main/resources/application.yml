@@ -1,0 +1,52 @@
+server:
+  port: ${API_GATEWAY_PORT:8080}
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true  # Enable automatic discovery of routes from Eureka
+      routes:
+        # API docs routes (should come first)
+        - id: department-service-api-docs
+          uri: lb://DEPARTMENT-SERVICE
+          predicates:
+            - Path=/department-service/v3/api-docs
+          filters:
+            - RewritePath=/department-service/(?<path>.*), /api/v1/$\{path}
+
+        - id: employee-service-api-docs
+          uri: lb://EMPLOYEE-SERVICE
+          predicates:
+            - Path=/employee-service/v3/api-docs
+          filters:
+            - RewritePath=/employee-service/(?<path>.*), /api/v1/$\{path}
+
+        # Service routes
+        - id: department-service
+          uri: lb://DEPARTMENT-SERVICE
+          predicates:
+            - Path=/api/v1/department-service/**
+          filters:
+            - RewritePath=/api/v1/department-service/(?<segment>.*), /api/v1/$\{segment}
+
+        - id: employee-service
+          uri: lb://EMPLOYEE-SERVICE
+          predicates:
+            - Path=/api/v1/employee-service/**
+          filters:
+            - RewritePath=/api/v1/employee-service/(?<segment>.*), /api/v1/$\{segment}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    urls:
+      - url: /department-service/v3/api-docs
+        name: Department Service
+      - url: /employee-service/v3/api-docs
+        name: Employee Service

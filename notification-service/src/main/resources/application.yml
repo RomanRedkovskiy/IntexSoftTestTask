@@ -1,0 +1,21 @@
+server:
+  port: 0
+  servlet:
+    context-path: /api/v1
+  error:
+    include-stacktrace: never
+    include-message: always
+
+spring:
+  application:
+    name: notification-service
+  jpa:
+    open-in-view: false
+  kafka:
+    consumer:
+      bootstrap-servers: ${HOST}:${KAFKA_PORT}
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: com.example.notificationservice.kafka.deserialization.InitialDeserializer
+      group-id: department-group
+    listener:
+      missing-topics-fatal: false

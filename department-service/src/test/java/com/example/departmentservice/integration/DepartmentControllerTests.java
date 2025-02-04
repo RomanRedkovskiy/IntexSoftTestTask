@@ -3,9 +3,9 @@ package com.example.departmentservice.integration;
 import com.example.departmentservice.TestcontainersConfiguration;
 import com.example.departmentservice.dto.department.in.DepartmentCreateDtoIn;
 import com.example.departmentservice.dto.department.out.DepartmentDtoOut;
+import com.example.departmentservice.kafka.NotificationProducer;
 import com.example.departmentservice.service.department.DepartmentService;
 import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -16,10 +16,10 @@ import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
-import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@AutoConfigureWireMock(port = 8081)
+@AutoConfigureWireMock(port = 8585)
 public class DepartmentControllerTests {
 
     @Autowired
@@ -44,6 +44,9 @@ public class DepartmentControllerTests {
 
     @BeforeAll
     void setUp() {
+        NotificationProducer notificationProducer = mock(NotificationProducer.class);
+        ReflectionTestUtils.setField(departmentService, "notificationProducer", notificationProducer);
+
         DepartmentCreateDtoIn departmentCreateDtoIn = DepartmentCreateDtoIn.builder()
                 .name("Department 1")
                 .location("Minsk")
@@ -84,7 +87,7 @@ public class DepartmentControllerTests {
                 .build();
         DepartmentDtoOut departmentDtoOut = departmentService.create(departmentCreateDtoIn);
 
-        WireMock.stubFor(WireMock.get("employees/department/" + departmentDtoOut.getId())
+        WireMock.stubFor(WireMock.get("/api/v1/employees/department/" + departmentDtoOut.getId())
                 .willReturn(WireMock.aResponse()
                         .withBody("[]")
                         .withHeader("Content-Type", "application/json")
@@ -196,7 +199,7 @@ public class DepartmentControllerTests {
                 .build();
         DepartmentDtoOut departmentDtoOut = departmentService.create(departmentCreateDtoIn);
 
-        WireMock.stubFor(WireMock.delete("/employees/department/" + departmentDtoOut.getId())
+        WireMock.stubFor(WireMock.delete("/api/v1/employees/department/" + departmentDtoOut.getId())
                 .willReturn(WireMock.aResponse()
                         .withStatus(200)));
 

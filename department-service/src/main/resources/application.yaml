@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: department-service
-
-kafka:
-  topics:
-    departmentCreate: department-create-topic
-    departmentUpdate: department-update-topic
-    departmentDelete: department-delete-topic
